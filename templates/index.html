@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+    <link rel="stylesheet" href="/static/style.css">
+    <meta charset="UTF-8">
+    <title>選課系統登錄頁面</title>
+</head>
+<body>
+<div class="topContent">
+    <div>
+        <img name="ccu-logo" src="{{url_for('static', filename='imgs/ccu.png')}}" height="60px" alt="ccu-logo">
+        <span class="banner1" style="font-size: 30px">甲甲大學選課系統</span>
+    </div>
+    <div class="catalog">
+                <a href="https://coursesearch03.fcu.edu.tw/main.aspx?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MTIyNjE4NTJ9.Z1_V9AnBlvPTTaTJoVHh6HLF5F9rAstRP1Hd2WLlngM">
+                    課程檢索系統
+                </a>&nbsp
+                <a href="https://s3.ap-southeast-1.amazonaws.com/web-content.fcu.edu.tw/wp-content/uploads/sites/118/2021/08/13093251/%E9%81%B8%E8%AA%B2%E7%B3%BB%E7%B5%B1%E6%93%8D%E4%BD%9C%E8%AA%AA%E6%98%8E_%E9%A0%90%E9%81%B8.mp4">
+                    系統操作說明
+                </a>&nbsp
+                <a href="https://registration.fcu.edu.tw/">
+                    註冊組首頁
+                </a>&nbsp
+                <a href="https://www.fcu.edu.tw/">
+                    逢甲首頁
+                </a>&nbsp
+                <a href="https://www.fcu.edu.tw/privacystatement/">
+                    隱私權聲明
+                </a>&nbsp
+    </div>
+</div>
+
+<div class="mainContent">
+    <fieldset>
+        <legend> 公告事項 </legend>
+            <span class="announcepadel">
+                <p>
+                    <span style="font-size: 16px">
+                        1、延修生採二階段式收費，112學年度第二學期第一階段之雜費敬請113年2月16日繳費截止日前繳費，第二階段之學分費俟113年2月27日加選截止日（學分費核算基準日）後，另行通知補繳（體育及軍訓課程按每週上課時數收取2個學分費），
+                        <u>延修生若於加選截止日（學分費核算基準日）之「學分總數」達10（含）學分者，須繳交原系所全額學雜費</u>&nbsp
+                        2、延修生、進修學士班學生或採學分費核算者，112學年度第二學期實際學分費依113年2月27日加選截止日之選課學分數核算，
+                        <u>未於加選截止日前辦理退選者，該科目學分費不予退費（未繳費者仍須補繳學分費）</u>
+                        ，俟加退選後另行通知補繳或退費。&nbsp
+                    </span>
+                </p>
+                <p>
+                    <span style="font-size: 16px">
+                        3、網路選課時，各階段不能跨部跨學制選修課程。 申請跨部跨學制修課請由註冊課務組網頁下載【學生選修跨部跨學制科目班級申請單】，填畢後依申請程序辦理。&nbsp
+                    </span>
+                </p>
+                <p>
+                    <span style="font-size:16px">
+                        4、選修通識課程請依就讀學制之開課時段或規定為原則。&nbsp;
+                    </span>
+                </p>
+            </span>
+    </fieldset>
+</div>
+<div class="leftContent">
+    <fieldset>
+        <form method="POST">
+            <legend> 登入(Login) </legend>
+            <div class="input-box">
+                <input type="text" maxlength="8" palceholder="NID", name="Username" required>
+            </div>
+            <label>密碼 :</label>
+            <div class="input-box">
+                <input type="password" palceholder="Password", name="Password" required>
+            </div>
+            <div class="remember-forget">
+                <label><input type="checkbox"> Remember me</label>
+                <div>
+                    <a href="https://registration.fcu.edu.tw/%E9%A6%96%E9%A0%81-2/%E6%9C%8D%E5%8B%99%E5%B0%8D%E8%B1%A1/qa/">忘記密碼</a>
+                </div>
+            </div>
+            <input type="submit" value="登入" name="Submit">
+        </form>
+    </fieldset>
+</div>
+</body>
+</html>

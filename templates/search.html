@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/search.css">
+    <meta charset="UTF-8">
+    <title>逢甲大學選課系統</title>
+</head>
+<body>
+    <style>
+        .add-button {
+            background-color: #13c513;
+            color: white;
+            cursor: pointer;
+            border-radius: 12px;
+
+            &:hover {
+                background-color: #1ca01c;
+            }
+        }
+        .withdraw-button {
+            background-color: #f03c3c;
+            color: white;
+            cursor: pointer;
+            border-radius: 12px;
+
+            &:hover {
+                background-color: #bb2929;
+            }
+        }
+    </style>
+    <script>
+        function addCourse(SID, CID) {
+            var data = {SID: SID, CID: CID};
+            fetch('/add_course', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    alert("加選成功");
+                }
+                else {
+                    alert("加選失敗"+ result.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+        function withdrawCourse(SID, CID) {
+            var data = {SID: SID, CID: CID};
+            fetch('/withdraw_course', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    alert('退選成功');
+                }
+                else {
+                    alert("退選失敗" + result.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+<div class="topContent">
+    <div>
+        <img name="ccu-logo" src="{{url_for('static', filename='imgs/ccu.png')}}" height="60px" alt="ccu-logo">
+        <span class="banner1" style="font-size: 30px">甲甲大學選課系統</span>
+    </div>
+    <div class="catalog">
+        <a href="http://127.0.0.1:5000/search">
+            課程搜尋
+        </a>&nbsp
+        <a href="http://127.0.0.1:5000/enrolledtable">
+            已選詳細課表
+        </a>&nbsp
+    </div>
+</div>
+<script src="{{url_for('static', filename='button.js')}}"></script>
+<div class="fcol">
+    <header>依輸入條件查詢</header>
+</div>
+<div class="require">
+    
+    <form method="POST">
+        <input type="checkbox" name="Select-Code" id="select-code" onchange="toggleInput('select-code','code')">
+        <lable> 選課代號 : </lable>
+        <input type="text" name="Code" id = "code" maxlength="4" placeholder="請輸入代號" disabled required>
+        <br>
+
+        <input type="checkbox" name="Select-Day" id="select-day" onchange="toggleInput('select-day', 'day')">
+        <lable> 星期 : </lable>
+        <select name="Day" id="day" disabled>
+            <option value="Monday">星期一</option>
+            <option value="Tuesday">星期二</option>
+            <option value="Wednesday">星期三</option>
+            <option value="Thursday">星期四</option>
+            <option value="Friday">星期五</option>
+
+        </select>
+        <!-- <input type="number"  id="time" maxlength="4" placeholder="textEntery" min="1" max="5" required> -->
+        <br>
+
+        <input type="checkbox" name="Select-Coursename" id="select-coursename" onchange="toggleInput('select-coursename', 'coursename')">
+        <lable> 科目名稱 : </lable>
+        <input type="text" name="Coursename" id="coursename" maxlength="20" placeholder="請輸入名稱" disabled >
+        <br>
+
+
+        <input type="checkbox" name="Select-Instructorname" id="select-instructorname" onchange="toggleInput('select-instructorname', 'instructorname')">
+        <lable> 開課教師姓名 : </lable>
+        <input type="text" name="Instructorname" id="instructorname" maxlength="4" placeholder="請輸入姓名" disabled required>
+        <br>
+        
+        <input type="submit" onclick="auth()">
+        &nbsp <button class="btn" class="all-btn">所有可選課表</button>
+    </form>
+</div>
+<div class="limit-banner">
+    目前學分:  <strong style="color: #f50505">{{student.Ttl_Credit}}</strong>  學分 <br>
+
+    最高學分:  30 學分 <br>
+
+    最低學分:  9  學分
+</div>
+</body>
+<div id="table-container" class="container">
+    <div class="box">
+        <table class="enroll-table">
+            <tr>
+                <td>0</td>
+                <td>Mon</td>
+                <td>Tue</td>
+                <td>Wed</td>
+                <td>Thu</td>
+                <td>Fri</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                {% for i in range(5)%}
+                <td>{{schedule_data[i * 14]}}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>2</td>
+                {% for i in range(5)%}
+                <td>{{schedule_data[i * 14 + 1]}}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>3</td>
+                {% for i in range(5)%}
+                <td>{{schedule_data[i * 14 + 2]}}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>4</td>
+                {% for i in range(5)%}
+                <td>{{schedule_data[i * 14 + 3]}}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>5</td>
+                {% for i in range(5)%}
+                <td>{{schedule_data[i * 14 + 4]}}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>6</td>
+                {% for i in range(5)%}
+                <td>{{schedule_data[i * 14 + 5]}}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>7</td>
+                {% for i in range(5)%}
+                <td>{{schedule_data[i * 14 + 6]}}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>8</td>
+                {% for i in range(5)%}
+                <td>{{schedule_data[i * 14 + 7]}}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>9</td>
+                {% for i in range(5)%}
+                <td>{{schedule_data[i * 14 + 8]}}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>10</td>
+                {% for i in range(5)%}
+                <td>{{schedule_data[i * 14 + 9]}}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>11</td>
+                {% for i in range(5)%}
+                <td>{{schedule_data[i * 14 + 10]}}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>12</td>
+                {% for i in range(5)%}
+                <td>{{schedule_data[i * 14 + 11]}}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>13</td>
+                {% for i in range(5)%}
+                <td>{{schedule_data[i * 14 + 12]}}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>14</td>
+                {% for i in range(5)%}
+                <td>{{schedule_data[i * 14 + 13]}}</td>
+                {% endfor %}
+            </tr>
+        </table>
+    </div>
+    
+    <div>
+        {% if courses %}
+        <table class="search-table">
+            <tr>
+                <td>選課代號</td>
+                <td>課程名稱</td>
+                <td>學分</td>
+                <td>開課教師</td>
+                <td>時間</td>
+                <td>教室</td>
+                <td>選課</td>
+            </tr>
+            {% for course in courses %}
+            <tr>
+                <form method="POST">
+                    <td name="Submit-courses">{{course[0]}}</td>
+                    <td>{{course[1]}}</td>
+                    <td>{{course[6]}}</td>
+                    <td>{{course[5]}}</td>
+                    
+                    <td>
+                        {% for cresult in cresults %}
+                            {% if cresult[0] == course[0] %}
+                                ({{cresult[9]}}) {{cresult[10]}},
+                            {% endif %}
+                            
+                        {% endfor %}
+                    </td>
+                    
+                    <td>{{course[11]}}</td>
+                    
+                    <td>
+                        <!-- 
+                            if 有名額: 
+                                if 已選: 
+                                    btn -> 退選; 
+                                else:
+                                    btn -> 加選;
+                                加選; 
+                            elif 沒名額:  
+                                btn -> 關注;  # 排隊抽籤
+                        -->
+                        <form method>
+                        <div class="add-button" onclick="addCourse('{{ student.S_ID }}', '{{ course[0] }}')">加選</div>
+                        <div class="withdraw-button" onclick="withdrawCourse('{{ student.S_ID }}', '{{ course[0] }}')">退選</div>
+                    </td>
+                </form>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+    </div>
+
+</div>
+</html>

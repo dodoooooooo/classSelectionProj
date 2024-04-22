@@ -1,0 +1,63 @@
+section {
+    margin: 0;
+    padding: 0;
+    font-family: Arial;
+}
+
+.container {
+    display: flex;
+}
+
+.selected-table {
+    width: 42px;
+    height: 20px;
+    margin-left: 0;
+    padding: 5px;
+}
+
+table, th, td {
+    table-layout: fixed;
+    height: 20px;
+    margin-left: 0;
+    padding: 5px;
+    text-align: center;
+    border: 2px solid #000000;
+    border-collapse: collapse;
+    position: relative; /* add relative positioning for hover effect */
+    cursor: pointer; /* change cursor to pointer on hover */
+}
+
+/* table td:hover::after {
+    content: attr(data-content);
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    z-index: 1;
+} */
+
+.search-table {
+    margin-left: 30px;
+    padding: 5px;
+}
+
+.selected-table :first-child {
+    width: 20px;
+}
+
+.selected-table :not(:first-child) {
+    width: 42px;
+}
+
+.limit-banner {
+    font-size: 15px;
+    margin-right: 20px;
+}
+
+/* .content {
+    display: none;
+} */

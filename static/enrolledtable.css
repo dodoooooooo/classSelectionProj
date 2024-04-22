@@ -1,0 +1,43 @@
+h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+table,tr {
+    table-layout: fixed;
+    margin: 50px auto;
+    height:90px;
+    border: 1px solid black;
+    padding: 5px;
+    text-align: center;
+    border: 2px solid #000000;
+    border-collapse: collapse;
+    margin-top: -20px;
+}
+
+tr:first-child {
+    height: 20px;
+}
+
+tr:not(:first-child) {
+    height: 90px;
+}
+
+td {
+    width: 120px; 
+    content: "\00a0";
+    padding: 5px;
+    text-align: center;
+    border: 2px solid #000000;
+    border-collapse: collapse;
+    
+}
+
+td:first-child {
+    width: 40px;
+}
+
+td:not(:first-child) {
+    width: 120px;
+}
